@@ -6377,7 +6377,7 @@ END_ENTITY;
 
 ENTITY IfcEarthingElementType
  SUBTYPE OF (IfcFlowTerminalType);
-	PredefinedType : OPTIONAL IfcEarthingElementTypeEnum;
+	PredefinedType : IfcEarthingElementTypeEnum;
  WHERE
 	CorrectPredefinedType : (PredefinedType <> IfcEarthingElementTypeEnum.USERDEFINED) OR
 ((PredefinedType = IfcEarthingElementTypeEnum.USERDEFINED) AND EXISTS(SELF\IfcElementType.ElementType));
@@ -6948,6 +6948,8 @@ ENTITY IfcFaceExcavation
  SUBTYPE OF (IfcUndergroundExcavation);
 	PredefinedType : IfcFaceExcavationTypeEnum;
  WHERE
+	CorrectPredefinedType : (PredefinedType <> IfcFaceExcavationTypeEnum.USERDEFINED) OR
+ ((PredefinedType = IfcFaceExcavationTypeEnum.USERDEFINED) AND EXISTS (SELF\IfcObject.ObjectType));
 	HasObjectType : (PredefinedType <> IfcFaceExcavationTypeEnum.USERDEFINED) OR EXISTS(SELF\IfcObject.ObjectType);
 END_ENTITY;
 
@@ -9717,6 +9719,8 @@ ENTITY IfcRadialExcavation
  SUBTYPE OF (IfcUndergroundExcavation);
 	PredefinedType : IfcRadialExcavationTypeEnum;
  WHERE
+	CorrectPredefinedType : (PredefinedType <> IfcRadialExcavationTypeEnum.USERDEFINED) OR
+ ((PredefinedType = IfcRadialExcavationTypeEnum.USERDEFINED) AND EXISTS (SELF\IfcObject.ObjectType));
 	HasObjectType : (PredefinedType <> IfcRadialExcavationTypeEnum.USERDEFINED) OR EXISTS(SELF\IfcObject.ObjectType);
 END_ENTITY;
 
@@ -10626,7 +10630,7 @@ ENTITY IfcRigidOperation
 	SecondCoordinate : IfcMeasureValue;
 	Height : OPTIONAL IfcLengthMeasure;
  WHERE
-	CoordinateType : (('IFC4X4.IFCLENGTHMEASURE' IN TYPEOF(FirstCoordinate)) AND ('IFC4X4.IFCLENGTHMEASURE' IN TYPEOF(SecondCoordinate))) OR (('IFC4X4.IFCPLANEANGLEMEASURE' IN TYPEOF(FirstCoordinate)) AND ('IFC4X4.IFCPLANEANGLEMEASURE' IN TYPEOF(SecondCoordinate)));
+	SameCoordinateType : (('IFC4X4.IFCLENGTHMEASURE' IN TYPEOF(FirstCoordinate)) AND ('IFC4X4.IFCLENGTHMEASURE' IN TYPEOF(SecondCoordinate))) OR (('IFC4X4.IFCPLANEANGLEMEASURE' IN TYPEOF(FirstCoordinate)) AND ('IFC4X4.IFCPLANEANGLEMEASURE' IN TYPEOF(SecondCoordinate)));
 END_ENTITY;
 
 ENTITY IfcRoad
@@ -11800,7 +11804,7 @@ ENTITY IfcSweptDiskSolidPolygonal
  WHERE
 	CorrectRadii : NOT(EXISTS(FilletRadius)) OR (FilletRadius >= SELF\IfcSweptDiskSolid.Radius);
 	DirectrixIsPolyline : ('IFC4X4.IFCPOLYLINE' IN TYPEOF(SELF\IfcSweptDiskSolid.Directrix)) OR
-(('IFC4X4.IFCINDEXEDPOLYCURVE' IN TYPEOF(SELF\IfcSweptDiskSolid.Directrix)) AND NOT(EXISTS(SELF\IfcSweptDiskSolid.Directrix.Segments)));
+(('IFC4X4.IFCINDEXEDPOLYCURVE' IN TYPEOF(SELF\IfcSweptDiskSolid.Directrix)) AND NOT(EXISTS(SELF\IfcSweptDiskSolid.Directrix\IfcIndexedPolyCurve.Segments)));
 END_ENTITY;
 
 ENTITY IfcSweptSurface
@@ -12381,14 +12385,16 @@ ENTITY IfcTunnel
  SUBTYPE OF (IfcFacility);
 	PredefinedType : IfcTunnelTypeEnum;
  WHERE
-	HasObjectType : (PredefinedType <> IfcTunnelTypeEnum.USERDEFINED) OR EXISTS(SELF\IfcObject.ObjectType);
+	CorrectPredefinedType : (PredefinedType <> IfcTunnelTypeEnum.USERDEFINED) OR
+ ((PredefinedType = IfcTunnelTypeEnum.USERDEFINED) AND EXISTS (SELF\IfcObject.ObjectType));
 END_ENTITY;
 
 ENTITY IfcTunnelPart
  SUBTYPE OF (IfcFacilityPart);
 	PredefinedType : IfcTunnelPartTypeEnum;
  WHERE
-	HasObjectType : (PredefinedType <> IfcTunnelPartTypeEnum.USERDEFINED) OR EXISTS(SELF\IfcObject.ObjectType);
+	CorrectPredefinedType : (PredefinedType <> IfcTunnelPartTypeEnum.USERDEFINED) OR
+ ((PredefinedType = IfcTunnelPartTypeEnum.USERDEFINED) AND EXISTS (SELF\IfcObject.ObjectType));
 END_ENTITY;
 
 ENTITY IfcTunnelTypicalSection
