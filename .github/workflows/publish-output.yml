@@ -33,14 +33,11 @@ jobs:
           set -euxo pipefail
 
           case "${GITHUB_REF_NAME}" in
-            ifc4.3-main)
-              echo "TARGET_SITE_DIR=${GITHUB_WORKSPACE}/output-repo/IFC/DEV/IFC4_3/HTML" >> "$GITHUB_ENV"
-              ;;
             ifc4.4-main)
-              echo "TARGET_SITE_DIR=${GITHUB_WORKSPACE}/output-repo/IFC/DEV/IFC4_4/HTML" >> "$GITHUB_ENV"
+              echo "TARGET_SITE_DIR=${GITHUB_WORKSPACE}/output-repo/IFC/DEV/IFC4_4_tunnel_proposal/HTML" >> "$GITHUB_ENV"
               ;;
             *)
-              echo "Unsupported branch: ${GITHUB_REF_NAME}"
+              echo "ERROR: this fork only publishes ifc4.4-main (got branch: ${GITHUB_REF_NAME})."
               exit 1
               ;;
           esac
@@ -80,9 +77,11 @@ jobs:
       - name: Check out output repository
         uses: actions/checkout@v4
         with:
-          repository: aothms/IFC4.x-development-merged-output
+          repository: buildingSMART/Standards-builds
           path: output-repo
           fetch-depth: 1
+          # OUTPUT_2_TOKEN must become a token with write access on buildingSMART/Standards-builds
+          # (fine-grained PAT / deploy key / GitHub App) before this branch is merged.
           token: ${{ secrets.OUTPUT_2_TOKEN }}
 
       - name: Set up Python
@@ -169,4 +168,14 @@ jobs:
             exit 0
           fi
           git commit -m "${SOURCE_COMMIT_MESSAGE}"
-          git push
+          for attempt in 1 2 3; do
+            if git push; then
+              echo "Push succeeded on attempt ${attempt}."
+              exit 0
+            fi
+            echo "Push attempt ${attempt} failed; fetching and rebasing onto origin/main."
+            git fetch origin main
+            git rebase origin/main
+          done
+          echo "ERROR: push still failing after 3 attempts."
+          exit 1
