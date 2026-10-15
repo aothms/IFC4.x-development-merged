@@ -316,7 +316,7 @@
       <ownedRule xmi:type="uml:Constraint" xmi:id="ct_IfcRelConnectsElements_NoSelfReference" name="NoSelfReference">
         <specification xmi:type="uml:OpaqueExpression" xmi:id="cl_IfcRelConnectsElements_NoSelfReference" name="NoSelfReference">
           <language>EXPRESS_WHERE</language>
-          <body>RelatingElement :&lt;>: RelatedElement</body>
+          <body>RelatingElement :&lt;&gt;: RelatedElement</body>
         </specification>
       </ownedRule>
       <generalization xmi:type="uml:Generalization" xmi:id="cl_IfcRelConnectsElements_gen_IfcRelConnects">
@@ -356,7 +356,7 @@
       <ownedRule xmi:type="uml:Constraint" xmi:id="ct_IfcRelConnectsPorts_NoSelfReference" name="NoSelfReference">
         <specification xmi:type="uml:OpaqueExpression" xmi:id="cl_IfcRelConnectsPorts_NoSelfReference" name="NoSelfReference">
           <language>EXPRESS_WHERE</language>
-          <body>RelatingPort :&lt;>: RelatedPort</body>
+          <body>RelatingPort :&lt;&gt;: RelatedPort</body>
         </specification>
       </ownedRule>
       <generalization xmi:type="uml:Generalization" xmi:id="cl_IfcRelConnectsPorts_gen_IfcRelConnects">
@@ -412,7 +412,7 @@
       <ownedRule xmi:type="uml:Constraint" xmi:id="ct_IfcRelInterferesElements_NoSelfReference" name="NoSelfReference">
         <specification xmi:type="uml:OpaqueExpression" xmi:id="cl_IfcRelInterferesElements_NoSelfReference" name="NoSelfReference">
           <language>EXPRESS_WHERE</language>
-          <body>RelatingElement :&lt;>: RelatedElement</body>
+          <body>RelatingElement :&lt;&gt;: RelatedElement</body>
         </specification>
       </ownedRule>
       <generalization xmi:type="uml:Generalization" xmi:id="cl_IfcRelInterferesElements_gen_IfcRelConnects">
@@ -3943,6 +3943,9 @@ END_FUNCTION;
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="cl_IfcBuiltSystemTypeEnum_TUNNEL_LINING" name="IfcBuiltSystemTypeEnum.TUNNEL_LINING">
       <generalization xmi:type="uml:Generalization" xmi:id="cl_IfcBuiltSystemTypeEnum_TUNNEL_LINING_gen_IfcBuiltSystem" general="cl_IfcBuiltSystem"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="cl_IfcLinearZone" name="IfcLinearZone" isAbstract="true">
+      <generalization xmi:type="uml:Generalization" xmi:id="cl_IfcLinearZone_gen_IfcLinearElement" general="cl_IfcLinearElement"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="cl_IfcBuiltSystemTypeEnum_TUNNEL_PRESUPPORT" name="IfcBuiltSystemTypeEnum.TUNNEL_PRESUPPORT">
       <generalization xmi:type="uml:Generalization" xmi:id="cl_IfcBuiltSystemTypeEnum_TUNNEL_PRESUPPORT_gen_IfcBuiltSystem" general="cl_IfcBuiltSystem"/>

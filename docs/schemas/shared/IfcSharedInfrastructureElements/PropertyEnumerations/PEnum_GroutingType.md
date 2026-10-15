@@ -21,3 +21,10 @@ Value is unkown.
 ### UNSET
 Value has not been specified.
 
+The type is user-defined.
+
+### NOTKNOWN
+Value is unknown.
+
+### UNSET
+Value has not been specified.
